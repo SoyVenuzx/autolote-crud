@@ -12,7 +12,13 @@ const db = new Sequelize({
   username: process.env.DB_USER, // Lee el usuario del .env
   password: process.env.DB_PASSWORD,
 
-  models: [path.join(__dirname, '../models/**/*.ts')]
+  models: [path.join(__dirname, '../models/**/*.ts')],
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 })
 
 export default db

@@ -4,7 +4,12 @@ import helmet from 'helmet'
 import colors from 'colors'
 import cors from 'cors'
 import morgan from 'morgan'
+
+//* Routes
 import testRouter from '@/routes/test.route'
+import authRouter from '@/routes/auth.route'
+import userRouter from '@/routes/user.route'
+
 import errorHandling from '@/middlewares/errorHandler'
 import db from '@/config/db'
 
@@ -21,6 +26,8 @@ app.use(helmet())
 
 //! -- Routes
 app.use('/api/v1/test', testRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/user', userRouter)
 
 //! -- Test Route
 app.get('/api/v1', (_, res) => {

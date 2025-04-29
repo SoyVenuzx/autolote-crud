@@ -7,12 +7,18 @@
   "scripts": {
     "build": "bunx --bun ts-node src/server.ts && tsc-alias",
     "dev": "tsx --watch src/server.ts",
-    "generate:models": "tsx src/lib/generate-models.js"
+    "generate:models": "tsx src/lib/generate-models.js",
+    "seed:roles": "tsx src/scripts/seedRoles.ts",
+    "create:admin": "tsx src/scripts/createAdmin.ts",
+    "init": "tsx src/scripts/init.ts"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/bun": "latest",
+    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.14.1",
     "@types/sequelize": "^4.28.20",
@@ -27,12 +33,15 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "colors": "^1.4.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.15.5",
     "pg-hstore": "^2.3.4",
