@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import authService from '../services/AuthService'
+import jwt from 'jsonwebtoken'
 
 class AuthController {
   /**
@@ -51,21 +52,18 @@ class AuthController {
         id: user.id,
         email: user.email,
         username: user.username,
-        roles: user.roles.map(({ name, description }) => ({
-          name,
-          description
-        })),
+        roles: user.roles.map((role: any) => `ROLE_${role.name.toUpperCase()}`),
         isActive: user.isActive,
         lastLogin: user.lastLogin,
         token
       }
 
-      // Configurar cookie HTTP-only con el token
       res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Solo https en producción
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas
+        sameSite: 'lax', // Cambiado de 'strict' a 'lax' para mayor compatibilidad
+        maxAge: 60 * 60 * 1000, // 1 hora
+        path: '/' // Asegura que la cookie esté disponible en todas las rutas
       })
 
       res.status(200).json({
@@ -114,6 +112,33 @@ class AuthController {
     } catch (error) {
       console.error('Error al obtener perfil:', error)
       res.status(500).json({ message: 'Error al obtener perfil de usuario' })
+    }
+  }
+
+  async verifyToken (req: Request, res: Response): Promise<void> {
+    try {
+      const token = req.cookies.token
+
+      if (!token) {
+        res.status(401).json({ message: 'No token provided' })
+        return
+      }
+
+      const decodedToken = authService.verifyToken(token)
+      console.log('Decoded token:', decodedToken)
+
+      if (!decodedToken) {
+        res.status(401).json({ message: 'Invalid or expired token' })
+        return
+      }
+
+      res.status(200).json({
+        message: 'Token válido',
+        user: decodedToken
+      })
+    } catch (error) {
+      console.error('Error al verificar token:', error)
+      res.status(500).json({ message: 'Error al verificar token' })
     }
   }
 }

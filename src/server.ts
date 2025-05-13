@@ -12,6 +12,7 @@ import userRouter from '@/routes/user.route'
 
 import errorHandling from '@/middlewares/errorHandler'
 import db from '@/config/db'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
@@ -20,7 +21,8 @@ const PORT = process.env.PORT || 3000
 
 //! -- Middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({ origin: 'localhost:5173', credentials: true }))
 app.use(morgan('dev'))
 app.use(helmet())
 

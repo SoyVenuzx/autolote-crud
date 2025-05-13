@@ -27,6 +27,7 @@ export const authenticate = (
     }
 
     const decodedToken = authService.verifyToken(token)
+    console.log({ decodedToken })
 
     if (!decodedToken) {
       res.status(401).json({ message: 'Invalid or expired token' })
@@ -85,19 +86,20 @@ export const authorize = (roles: string[] = []) => {
 const extractTokenFromRequest = (req: Request): string | null => {
   // 1. Intentar obtener de cookie HTTP-only
   if (req.cookies && req.cookies.token) {
+    console.log(req.cookies.token)
     return req.cookies.token
   }
 
   // 2. Intentar obtener del header Authorization
-  const authHeader = req.headers.authorization
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    return authHeader.substring(7) // Remover 'Bearer ' del inicio
-  }
+  // const authHeader = req.headers.authorization
+  // if (authHeader && authHeader.startsWith('Bearer ')) {
+  //   return authHeader.substring(7) // Remover 'Bearer ' del inicio
+  // }
 
-  // 3. Intentar obtener de query parameter (menos seguro, solo para casos específicos)
-  if (req.query && req.query.token) {
-    return req.query.token as string
-  }
+  // // 3. Intentar obtener de query parameter (menos seguro, solo para casos específicos)
+  // if (req.query && req.query.token) {
+  //   return req.query.token as string
+  // }
 
   return null
 }

@@ -5,6 +5,7 @@ import { Op } from 'sequelize'
 
 export interface TokenPayload {
   id: string
+  username: string
   email: string
   roles: string[]
 }
@@ -35,11 +36,12 @@ class AuthService {
    * @returns Payload decodificado o null si es inválido
    */
   verifyToken (token: string): TokenPayload | null {
-    try {
-      return jwt.verify(token, this.JWT_SECRET) as TokenPayload
-    } catch (error) {
-      return null
-    }
+    // try {
+    const payload = jwt.verify(token, this.JWT_SECRET) as TokenPayload
+    return payload
+    // } catch (error) {
+    //   return null
+    // }
   }
 
   /**
@@ -110,6 +112,7 @@ class AuthService {
     // Crear payload para JWT
     const payload: TokenPayload = {
       id: user.id,
+      username: user.username,
       email: user.email,
       roles: user.roles.map((role: any) => `ROLE_${role.name.toUpperCase()}`)
     }

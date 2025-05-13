@@ -13,6 +13,7 @@ router.post('/logout', AuthController.logout)
 // Rutas protegidas
 router.get('/profile', authenticate, AuthController.getProfile)
 router.get('/get-users', getUsers)
+router.get('/verify', authenticate, AuthController.verifyToken)
 
 // Ejemplo de ruta que requiere rol específico
 router.get('/admin', authenticate, authorize(['admin']), (req, res) => {
