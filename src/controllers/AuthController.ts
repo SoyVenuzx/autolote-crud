@@ -62,7 +62,7 @@ class AuthController {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Solo https en producción
         sameSite: 'lax', // Cambiado de 'strict' a 'lax' para mayor compatibilidad
-        maxAge: 60 * 60 * 1000, // 1 hora
+        maxAge: 48 * 60 * 60 * 1000, // 1 hora
         path: '/' // Asegura que la cookie esté disponible en todas las rutas
       })
 

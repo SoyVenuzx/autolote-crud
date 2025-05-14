@@ -9,6 +9,7 @@ import morgan from 'morgan'
 import testRouter from '@/routes/test.route'
 import authRouter from '@/routes/auth.route'
 import userRouter from '@/routes/user.route'
+import adminRouter from '@/routes/admin.route'
 
 import errorHandling from '@/middlewares/errorHandler'
 import db from '@/config/db'
@@ -30,6 +31,7 @@ app.use(helmet())
 app.use('/api/v1/test', testRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
+app.use('/api/v1/admin', adminRouter)
 
 //! -- Test Route
 app.get('/api/v1', (_, res) => {

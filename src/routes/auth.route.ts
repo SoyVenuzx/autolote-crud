@@ -1,7 +1,6 @@
 import express from 'express'
 import AuthController from '@/controllers/AuthController'
 import { authenticate, authorize } from '../middlewares/authMiddleware'
-import { getUsers } from '@/handlers/user'
 
 const router = express.Router()
 
@@ -12,7 +11,6 @@ router.post('/logout', AuthController.logout)
 
 // Rutas protegidas
 router.get('/profile', authenticate, AuthController.getProfile)
-router.get('/get-users', getUsers)
 router.get('/verify', authenticate, AuthController.verifyToken)
 
 // Ejemplo de ruta que requiere rol específico

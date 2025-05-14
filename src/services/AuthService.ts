@@ -16,7 +16,7 @@ class AuthService {
 
   constructor () {
     this.JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
-    this.JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h'
+    this.JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '2d'
   }
 
   /**
@@ -26,7 +26,7 @@ class AuthService {
    */
   generateToken (payload: TokenPayload): string {
     return jwt.sign(payload, this.JWT_SECRET, {
-      expiresIn: parseInt(this.JWT_EXPIRES_IN)
+      expiresIn: '2d'
     })
   }
 
@@ -80,6 +80,7 @@ class AuthService {
 
     // Recargar el usuario con roles
     await user.reload({ include: [Role] })
+
     return user
   }
 

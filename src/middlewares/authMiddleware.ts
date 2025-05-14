@@ -13,6 +13,13 @@ declare global {
 /**
  * Middleware para verificar la autenticación del usuario
  */
+// export const authenticate = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): void => {
+//   try {
+//     const token = extractTokenFromRequest(req)
 export const authenticate = (
   req: Request,
   res: Response,
@@ -27,7 +34,6 @@ export const authenticate = (
     }
 
     const decodedToken = authService.verifyToken(token)
-    console.log({ decodedToken })
 
     if (!decodedToken) {
       res.status(401).json({ message: 'Invalid or expired token' })
@@ -42,6 +48,26 @@ export const authenticate = (
     res.status(401).json({ message: 'Authentication failed' })
   }
 }
+//     if (!token) {
+//       res.status(401).json({ message: 'No token provided' })
+//       return
+//     }
+
+//     const decodedToken = authService.verifyToken(token)
+
+//     if (!decodedToken) {
+//       res.status(401).json({ message: 'Invalid or expired token' })
+//       return
+//     }
+
+//     // Añadir la información del usuario al request
+//     req.user = decodedToken
+//     next()
+//   } catch (error) {
+//     console.error('Authentication error:', error)
+//     res.status(401).json({ message: 'Authentication failed' })
+//   }
+// }
 
 /**
  * Middleware para verificar si el usuario tiene un rol específico
@@ -62,7 +88,8 @@ export const authorize = (roles: string[] = []) => {
       }
 
       // Verificar si el usuario tiene alguno de los roles requeridos
-      const hasRole = req.user.roles.some(role => roles.includes(role))
+      const formattedRoles = roles.map(role => `ROLE_${role.toUpperCase()}`)
+      const hasRole = req.user.roles.some(role => formattedRoles.includes(role))
 
       if (!hasRole) {
         res
@@ -86,20 +113,19 @@ export const authorize = (roles: string[] = []) => {
 const extractTokenFromRequest = (req: Request): string | null => {
   // 1. Intentar obtener de cookie HTTP-only
   if (req.cookies && req.cookies.token) {
-    console.log(req.cookies.token)
     return req.cookies.token
   }
 
   // 2. Intentar obtener del header Authorization
-  // const authHeader = req.headers.authorization
-  // if (authHeader && authHeader.startsWith('Bearer ')) {
-  //   return authHeader.substring(7) // Remover 'Bearer ' del inicio
-  // }
+  const authHeader = req.headers.authorization
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    return authHeader.substring(7) // Remover 'Bearer ' del inicio
+  }
 
-  // // 3. Intentar obtener de query parameter (menos seguro, solo para casos específicos)
-  // if (req.query && req.query.token) {
-  //   return req.query.token as string
-  // }
+  // 3. Intentar obtener de query parameter (menos seguro, solo para casos específicos)
+  if (req.query && req.query.token) {
+    return req.query.token as string
+  }
 
   return null
 }
