@@ -20,7 +20,7 @@ import { Venta } from './Venta.model'
 import { CaracteristicaOpcional } from './CaracteristicaOpcional.model'
 import { VehiculoCaracteristicaOpcional } from './VehiculoCaracteristicaOpcional.model'
 
-type EstadoInventario =
+export type EstadoInventario =
   | 'Disponible'
   | 'Reservado'
   | 'Vendido'
@@ -187,8 +187,8 @@ export class Vehiculo extends Model {
   @BelongsTo(() => TipoCombustible)
   tipo_combustible!: TipoCombustible
 
-  @HasMany(() => ImagenVehiculo)
-  imagenes!: ImagenVehiculo[]
+  // @HasMany(() => ImagenVehiculo)
+  // imagenes!: ImagenVehiculo[]
 
   @HasOne(() => Adquisicion)
   adquisicion!: Adquisicion

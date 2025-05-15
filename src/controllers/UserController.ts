@@ -87,6 +87,27 @@ class UserController {
       })
     }
   }
+  async listAllRoles (req: Request, res: Response): Promise<void> {
+    try {
+      const roles = await Role.findAll()
+
+      if (!roles.length) {
+        res.status(404).json({ message: 'No se encontraron roles' })
+        return
+      }
+
+      res.status(200).json({
+        message: 'Roles encontrados',
+        roles
+      })
+    } catch (error) {
+      console.error('Error al listar roles:', error)
+      res.status(500).json({
+        message:
+          error instanceof Error ? error.message : 'Error al listar roles'
+      })
+    }
+  }
 }
 
 export default new UserController()

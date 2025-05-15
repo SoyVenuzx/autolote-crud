@@ -5,7 +5,6 @@ import {
 import { createColor, getColor } from '@/handlers/color'
 import { createMarca, getMarca } from '@/handlers/marca'
 import { createModelo, getModelo } from '@/handlers/modelo'
-import { createPuesto, getPuesto } from '@/handlers/puesto'
 import {
   createTipoCombustible,
   getTipoCombustible
@@ -29,9 +28,6 @@ router.post('/marca', createMarca)
 
 router.get('/modelo', getModelo)
 router.post('/modelo', createModelo)
-
-router.get('/puesto', getPuesto)
-router.post('/puesto', createPuesto)
 
 router.get('/combustible', getTipoCombustible)
 router.post('/combustible', createTipoCombustible)

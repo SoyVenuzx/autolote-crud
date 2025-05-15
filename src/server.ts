@@ -10,6 +10,12 @@ import testRouter from '@/routes/test.route'
 import authRouter from '@/routes/auth.route'
 import userRouter from '@/routes/user.route'
 import adminRouter from '@/routes/admin.route'
+import vehicleRouter from '@/modules/vehiculo/vehiculo.routes'
+import contactoRouter from '@/modules/contacto/contacto.routes'
+import puestoRouter from '@/modules/puesto/puesto.routes'
+import proveedorRouter from '@/modules/proveedor/proveedor.routes'
+import clienteRouter from '@/modules/cliente/cliente.routes'
+import empleadoRouter from '@/modules/empleado/empleado.routes'
 
 import errorHandling from '@/middlewares/errorHandler'
 import db from '@/config/db'
@@ -32,6 +38,12 @@ app.use('/api/v1/test', testRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/admin', adminRouter)
+app.use('/api/v1/vehicle', vehicleRouter)
+app.use('/api/v1/contact', contactoRouter)
+app.use('/api/v1/position', puestoRouter)
+app.use('/api/v1/supplier', proveedorRouter)
+app.use('/api/v1/client', clienteRouter)
+app.use('/api/v1/employee', empleadoRouter)
 
 //! -- Test Route
 app.get('/api/v1', (_, res) => {

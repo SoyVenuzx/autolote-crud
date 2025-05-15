@@ -57,8 +57,8 @@ export class ImagenVehiculo extends Model {
   fecha_subida!: Date
 
   // Relationships
-  @BelongsTo(() => Vehiculo)
-  vehiculo!: Vehiculo
+  // @BelongsTo(() => Vehiculo)
+  // vehiculo!: Vehiculo
 }
 
 export default ImagenVehiculo

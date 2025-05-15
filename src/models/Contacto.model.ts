@@ -3,7 +3,7 @@ import { Cliente } from './Cliente.model'
 import { Empleado } from './Empleado.model'
 import { Proveedor } from './Proveedor.model'
 
-type TipoDocumento = 'DNI' | 'RUC' | 'Pasaporte' | 'Cedula' | 'Otro'
+export type TipoDocumento = 'DNI' | 'RUC' | 'Pasaporte' | 'Cedula' | 'Otro'
 
 @Table({
   tableName: 'contactos',

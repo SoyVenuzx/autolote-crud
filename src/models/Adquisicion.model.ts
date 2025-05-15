@@ -12,7 +12,7 @@ import { Proveedor } from './Proveedor.model'
 import { Cliente } from './Cliente.model'
 import { Empleado } from './Empleado.model'
 
-type TipoAdquisicion =
+export type TipoAdquisicion =
   | 'Compra Directa'
   | 'Trade-In'
   | 'Consignacion'
